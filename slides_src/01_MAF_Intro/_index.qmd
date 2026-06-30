@@ -53,3 +53,49 @@ _(以上都GitHub Copilot掰的🤖)_
 
 ![圖片來源：[Get started with Microsoft Copilot Studio - part 3](https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/)]({{< meta part1_img_prefix >}}pics/agent_Arch.png){fig-align="center" width="100%"}
 
+## MAF 控制 LLM 架構{.scrollable}
+
+::: {style="font-size: 75%;"}
+
+MAF 為了支援多種不同的 LLM (Large Language Model) Host環境，提供了一個『[`AIAgent`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.aiagent)』的一致API介面，讓開發者可以在不需要大幅改動Agent商業邏輯互動程式碼情況下，切換不同的 LLM 服務。
+
+:::
+
+### 底層用 [IChatClient](https://learn.microsoft.com/dotnet/api/microsoft.extensions.ai.ichatclient) (OpenAI API)
+
+![]({{< meta part1_img_prefix >}}pics/agent-IChatClient_arch.svg){fig-align="center"}
+
+### 底層串接多種 LLM Hosting Service
+
+![]({{< meta part1_img_prefix >}}pics/agent-other_arch.svg){fig-align="center"}
+
+::: {style="font-size: 60%; text-align: center;"}
+
+圖片來源: [Agent pipeline architecture](https://learn.microsoft.com/agent-framework/agents/agent-pipeline)
+
+:::
+
+## {.scrollable}
+
+除了雲端 OpenAI, Azure AI 服務之外，地端 LLM Hosting (如： Ollama, LM Studio 等)如果是提供 OpenAI compatible REST API，也可直接用 MAF 的 `IChatClient` 介面串接：
+
+```{.csharp code-line-numbers="1-3,13"}
+var chatClient = new OpenAIClient(
+        new ApiKeyCredential("a-fake-key"),
+        new OpenAIClientOptions { Endpoint = new Uri("http://localhost:1234/v1") })
+    .GetResponsesClient()
+    .AsIChatClient(model_name)
+    .AsBuilder()
+    .ConfigureOptions(o =>
+    {
+        // Configure the chat client options here
+    })
+    .Build();
+
+AIAgent agent = new ChatClientAgent(chatClient, name: agentName, instructions: agentInstructions);
+```
+
+
+[範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/DemoLocalAIAgent) 
+
+![]({{< meta part1_img_prefix >}}pics/demo_LMStudio.png){fig-align="center" width="100%"}
