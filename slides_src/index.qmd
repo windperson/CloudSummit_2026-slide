@@ -1,0 +1,62 @@
+---
+title: Microsoft Agent Framework<br/> + Orleans 打造<br/>雲地協同 AI 工作流
+
+author: 老鮑伯
+format:
+    revealjs:
+        width: 1300
+        height: 1000
+        slide-tone: false
+        theme: simple
+        menu:
+            side: right
+        slide-number: true
+        include-in-header: 
+            text: |
+                <style>
+                .center-xy {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translateY(-50%), translateX(-50%);
+                transform: translateY(-50%), translateX(-50%);
+                }
+                .text-center {
+                text-align: center;
+                }
+                </style>
+from: markdown+emoji
+code-annotations: below
+---
+
+# Agenda
+
+:::: {.columns}
+::: {.column width="80%"}
+
+* MAF(Microsoft Agent Framework) 介紹
+* Microsoft Orleans 簡介<br/>結合 MAF 建立多代理系統
+* Azure AI Search Agentic Retrieval<br/>(AgenticRAG)多代理範例 
+* OpenClaw .NET C# 兩個主流實現版本 
+
+:::
+::: {.column width="20%"}
+
+{{< qrcode https://windperson.github.io/CloudSummit_2026-slide/ width=240 height=240 >}}
+
+::::{.text-center .smaller}
+**Slide URL**
+::::
+
+:::
+::::
+
+
+# MAF<br/>(Microsoft Agent Framework)
+
+{{< include 01_MAF_Intro/_index.qmd >}}
+
+# Microsoft Orleans 簡介<br/>結合 MAF 建立多代理系統
+
+{{< include 02_Orleans_Intro/_index.qmd >}}

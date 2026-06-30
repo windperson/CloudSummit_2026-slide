@@ -1,0 +1,55 @@
+---
+# part1
+---
+
+## MAF(Microsoft Agent Framework)
+
+Microsoft Agent Framework (以下簡稱 _MAF_) 由微軟開發的MIT授權開源 AI Agent（人工智慧代理）系統開發框架。
+
+:::: {.columns}
+
+::: {.column width="35%"}
+
+![]({{< meta part1_img_prefix >}}pics/MAF_logo.png){fig-align="center"}
+
+:::
+
+::: {.column width="65%"}
+
+GitHub<br/><https://aka.ms/AgentFramework>
+
+官網說明<br/><https://learn.microsoft.com/agent-framework>
+
+Discord討論區<br/>[Microsoft Foundry Discrod 伺服器](https://discord.gg/b5zjErwbQM)<br/>的 **# agent-framework** 頻道
+
+:::
+
+::::
+
+
+ [.NET C#](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai) 和 [Python](https://learn.microsoft.com/python/api/agent-framework-core/agent_framework) API，除了控管 LLM 的 AI Agent 之外，亦有多代理工作流(Workflow)協調功能，使開發者能 _輕鬆_ 創建適應不同場景的智能代理，實現複雜多AI Agent 系統。
+
+
+## AI Agent 的定義與架構
+
+### Agent 的定義
+
+::: {style="font-size: 87%;"}
+
+Agent 在{學術}定義上是一個能夠自主感知環境、做出決策並執行任務的軟體實體，具備以下特徵：
+
+* 自主性：能夠在沒有人工干預的情況下運行。
+* 感知能力：能夠感知環境並收集資訊。
+* 決策能力：能夠根據感知到的資訊做出合理的決策。
+* 行動能力：能夠執行決策並影響環境。
+
+_(以上都GitHub Copilot掰的🤖)_
+
+:::
+
+## MAF 定義的 AI Agent 組成
+
+在 MAF (以及其他MS相關技術)中 ，AI Agent 架構概念包括以下組件：
+
+![圖片來源：[Get started with Microsoft Copilot Studio - part 3](https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/)]({{< meta part1_img_prefix >}}pics/agent_Arch.png){fig-align="center" width="100%"}
+
