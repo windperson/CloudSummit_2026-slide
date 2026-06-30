@@ -1,8 +1,0 @@
-/.quarto/
-/slides_src/**/*.html
-/slides_src/**/*.pdf
-/slides_src/**/*.md
-/slides_src/**/*.pptx
-/slides_src/**/*_files/
-
-**/*.quarto_ipynb
