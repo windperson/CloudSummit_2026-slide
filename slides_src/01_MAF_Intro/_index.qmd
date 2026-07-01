@@ -191,3 +191,22 @@ MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`]
 ::: {.callout-tip}
 連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『[Fondry Hosted MCP Server](https://learn.microsoft.com/azure/foundry/mcp/get-started)』的話，建議使用第三方套件 [Agent Framework Toolkit](https://github.com/rwjdk/AgentFrameworkToolkit/) 會比較方便。
 :::
+
+## Skill 
+
+MAF 的 [Agent Skill](https://learn.microsoft.com/agent-framework/agents/skills?pivots=programming-language-csharp) 載入機制可以是讀純文字 .md 檔或是由 CSharp code 裡的文字注入
+
+## Agentic Workflow
+
+先記得它有很多種花俏的就好惹 (比 AutoGen 還多樣)
+
+## 其他雜七雜八
+
+* A2A
+* Middleware 機制
+* OpenTelemetry
+
+C＃還沒好的
+* AG-UI
+* DevUI
+* Dynamic Gen Code
