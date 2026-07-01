@@ -366,7 +366,7 @@
 </section>
 <section id="section-1" class="slide level2 scrollable">
 <h2></h2>
-<p>在跟 AIAgent 互動的客戶端程式碼，都可以使用 MAF 提供的 <a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.agentsession">AgentSession</a> API 取得對話狀態資料：</p>
+<p>在跟 <code>AIAgent</code> 物件互動（使用 <code>RunAsync()</code> / <code>RunStreamingAsync()</code> 呼叫）的客戶端程式碼，都可以使用 MAF 提供的 <a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.agentsession">AgentSession</a> API 取得對話狀態資料：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb2-1"><a href=""></a><span class="co">// 取得 AgentSession </span></span>
 <span id="cb2-2"><a href=""></a>AgentSession session <span class="op">=</span> await agent<span class="op">.</span><span class="fu">CreateSessionAsync</span><span class="op">();</span></span>
 <span id="cb2-3"><a href=""></a></span>
@@ -378,7 +378,8 @@
 <span id="cb2-9"><a href=""></a></span>
 <span id="cb2-10"><a href=""></a><span class="co">// 恢復</span></span>
 <span id="cb2-11"><a href=""></a>AgentSession resumed <span class="op">=</span> await agent<span class="op">.</span><span class="fu">DeserializeSessionAsync</span><span class="op">(</span>serialized<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>在 MAF 框架層，預設自動套用『<a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest"><code>InMemoryChatHistoryProvider</code></a>』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。</p>
+<p>在 MAF 框架層，預設自動套用內建『<a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest"><code>InMemoryChatHistoryProvider</code></a>』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。</p>
+<p><code>InMemoryChatHistoryProvider</code> 也內建提供了幾種<a href="https://learn.microsoft.com/agent-framework/agents/conversations/storage?pivots=programming-language-csharp#reducing-in-memory-history-size">壓縮對話記錄</a>的機制(<code>OOXXChatReducer</code>)。</p>
 <p>目前除了自己繼承 <a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.chathistoryprovider"><code>ChatHistoryProvider</code></a> 抽象類別來實作自訂的對話記錄儲存之外，也可以使用 MAF 提供的另一個 <a href="https://learn.microsoft.coms/dotnet/api/microsoft.agents.ai.cosmoschathistoryprovider"><code>CosmosDbChatHistoryProvider</code></a> 實作，使用 <a href="https://azure.microsoft.com/products/cosmos-db/">Azure Cosmos DB</a> 儲存。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -388,6 +389,40 @@
 <div style="font-size: 60%; text-align: center;">
 <p>圖片來源: <a href="https://medium.com/microsoftazure/chat-history-providers-in-microsoft-agent-framework-making-agents-remember-f99476c88d3f">Chat History Providers in Microsoft Agent Framework — Making Agents Remember</a></p>
 </div>
+</section>
+<section class="slide level2">
+
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>“Context Provider”</strong></p>
+</div>
+<div class="callout-content">
+<p>MAF 除了對話記錄專屬的 <code>ChatHistoryProvider</code> 之外，還提供了另一個抽象類別 <a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.aicontextprovider?view=agent-framework-dotnet-latest"><code>AIContextProvider</code></a> 讓開發者繼承該類別，自訂所有跟LLM互動上下文(Context)的儲存方式。</p>
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="6-8"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href=""></a>AIAgent agent <span class="op">=</span> <span class="kw">new</span> <span class="fu">OpenAIClient</span><span class="op">(</span><span class="st">"&lt;your_api_key&gt;"</span><span class="op">)</span></span>
+<span id="cb3-2"><a href=""></a>    <span class="op">.</span><span class="fu">GetChatClient</span><span class="op">(</span>modelName<span class="op">)</span></span>
+<span id="cb3-3"><a href=""></a>    <span class="op">.</span><span class="fu">AsAIAgent</span><span class="op">(</span><span class="kw">new</span> <span class="fu">ChatClientAgentOptions</span><span class="op">()</span></span>
+<span id="cb3-4"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb3-5"><a href=""></a>        ChatOptions <span class="op">=</span> <span class="kw">new</span><span class="op">()</span> <span class="op">{</span> Instructions <span class="op">=</span> <span class="st">"You are a helpful assistant."</span> <span class="op">},</span></span>
+<span id="cb3-6"><a href=""></a>        AIContextProviders <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb3-7"><a href=""></a>            <span class="kw">new</span> <span class="fu">MyCustomMemoryProvider</span><span class="op">()</span></span>
+<span id="cb3-8"><a href=""></a>        <span class="op">],</span></span>
+<span id="cb3-9"><a href=""></a>    <span class="op">});</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="toolling-mcpmodel-control-protocol-呼叫" class="slide level2">
+<h2>Toolling &amp; MCP(Model Control Protocol) 呼叫</h2>
+<p>MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為<a href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.ai.aitool"><code>AITool</code></a>，所以就是所有可以轉換成 <code>AITool</code> 的物件，都可以被 MAF 的 <code>AIAgent</code> 呼叫:</p>
+<ul>
+<li>.NET C# Method</li>
+<li>MCP endpoint</li>
+<li>另一個 <code>AIAgent</code></li>
+</ul>
 </section></section>
 <section>
 <section id="microsoft-orleans-簡介-結合-maf-建立多代理系統" class="title-slide slide level1 center">
