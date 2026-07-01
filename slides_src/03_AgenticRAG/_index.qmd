@@ -2,13 +2,24 @@
 # part3
 ---
 
-## Azure AI Search Agentic Retrieval<br/>(AgenticRAG)
+## Azure AI Search Agentic Retrieval<br/>(AgenticRAG) {.scrollable}
 
 Azure AI Search 服務的新功能，提供 AgenticRAG (Agentic Retrieval-Augmented Generation) 的能力，讓開發者可以配合Microsoft Foundry 建立AI Agent的雲端系統，透過 Azure AI Search 服務進行資料檢索與回應生成。
 
 ![]({{< meta part3_img_prefix >}}pics/agentic-retrieval-architecture.png){fig-align="center" height="100%"}
 
+這跟之前傳統的 RAG (Retrieval-Augmented Generation) 架構不同之處是，AgenticRAG 會將使用者的查詢請求使用 LLM AI Agent 進行分析，拆成多個 AI Agent 的動作，將查詢請求轉換成多個檢索任務/工具呼叫，最後將結果進行整合與生成回應。
+
+![]({{< meta part3_img_prefix >}}pics/agentic-retrieval-example.png){fig-align="center" height="100%"}
+
+圖片來源: [Agentic retrieval in Azure AI Search](https://learn.microsoft.com/azure/search/agentic-retrieval-overview)
 
 ## Azure AI Search Agentic Retrieval 範例架構
 
 ![]({{< meta part3_img_prefix >}}pics/iThome_CloudSummit_2026_AgenticRAG.svg){fig-align="center" height="100%"}
+
+## 範例程式
+
+[範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/AgenticSearchOpenAiResponsesApi) 
+
+![]({{< meta part3_img_prefix >}}pics/rider_demo.png){fig-align="center" height="100%"}

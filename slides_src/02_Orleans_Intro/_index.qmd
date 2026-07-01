@@ -7,7 +7,6 @@
 基本概念在 .NET 7 之後大同小異，所以先偷懶炒一下冷飯  
 (投影片素材環保複用😆)
 
-
 ```{=html}
 <iframe src="https://1drv.ms/p/c/6b28b74ef8d58d8c/IQSMjdX4TrcoIIBrxy8cAAAAASG0JQu53j_2uTotdhgkt-o?wdAr=1.7777777777777777" width="1300px" height="800px" frameborder="0" title="PowerPoint Viewer">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
 ```
@@ -16,8 +15,52 @@
 30分鐘的錄影：<https://youtu.be/oiJvbKReiTw?si=TbFcDLyc_6L_sHcj>
 :::
 
-## MS Orleans 整合 AI Agent 框架的幾個嘗試：
+## Orleans 整合 AI Agent 框架的幾個嘗試：
 
 * [AutoGen v0.4.x-dotnet](https://github.com/microsoft/autogen/milestone/17) (永遠不會完成的版本)
 * [project-oagents](https://github.com/microsoft/project-oagents)（Semantic Kernel C# 版本 + MS Orleans）
 
+::: {.callout-note}
+
+概念上需要處理同時多人/多狀態又需有一定的回應速度需求的系統，可使用 Microsoft Orleans 來輔助實現這種 non-functional requiremenot
+
+:::
+
+## MAF 配合使用 Orleans 的範例 #1 {.scrollable}
+
+圖片來源: [Building Stateful AI Agents at Scale with Microsoft Orleans](https://dev.to/sreeni5018/building-stateful-ai-agents-at-scale-with-microsoft-orleans-4n14)
+
+![]({{< meta part2_img_prefix >}}pics/MAF_on_Olreans_examp01.webp){fig-align="center" height="100%"}
+
+重點是在 Orleans 的 Grain 中整合 MAF AIAgent 的程式寫法：
+
+```{.csharp code-line-numbers="3-5,12-16"}
+public class OrchestrationAgentGrain : Grain, IOrchestrationAgentGrain
+{
+    private AIAgent? _orchestrationAgent;
+    private AIAgent? _ragAgent;
+    private AIAgent? _searchAgent;
+
+    /***/
+
+    private async Task InitializeAgentFrameworkAsync()
+    {
+        // Create orchestration agent with tools
+        _orchestrationAgent = new ChatClientAgent(
+            _chatClient,
+            instructions: @"You are an intelligent orchestration agent...",
+            name: "orchestration_agent",
+            tools: new[] { ragTool, searchTool });
+    }
+}
+```
+
+## MAF 配合使用 Orleans 的範例 #2 {.scrollable}
+
+敬請期待😆(還真剛好就是 2026/7/2 今晚)
+
+<https://www.youtube.com/live/OQqhQpHR3Gg>
+
+```{=html}
+<iframe width="1300" height="700" src="https://www.youtube.com/embed/OQqhQpHR3Gg?si=3jbxWFFyK7KHswOD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+```
