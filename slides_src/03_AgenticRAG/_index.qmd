@@ -38,7 +38,7 @@ Agentic Retrival 的服務需要設定 Azure AI Search 服務和 Microsoft Found
 由於 C# SDK 目前還在 Preview 階段且每次新版本都極有可能不相容，程式碼範例可能會隨時變動，用 AI Coding 工具開發時請小心自己身為人類的高血壓發作😅
 :::
 
----
+## {.scrollable}
 
 ::: {.callout-tip}
 設定好的 Azure AI Search 服務目前預設有 [MCP endpoint 可配合 Auth Token 叫用](https://learn.microsoft.com/en-us/azure/search/agentic-retrieval-how-to-retrieve?tabs=2026-05-01-preview&pivots=csharp#mcp-endpoint-format)，所以除了雲端 LLM 之外，地端的也可以使用

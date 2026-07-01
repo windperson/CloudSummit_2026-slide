@@ -206,7 +206,7 @@ MAF 的 [Agent Skill](https://learn.microsoft.com/agent-framework/agents/skills?
 * Middleware 機制
 * OpenTelemetry
 
-C＃還沒好的
+C＃還沒 _完全_ 好的
 
 * AG-UI
 * DevUI
