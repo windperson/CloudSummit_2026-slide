@@ -65,3 +65,7 @@ code-annotations: below
 # Azure AI Search Agentic Retrieval<br/>(AgenticRAG)多代理範例 
 
 {{< include 03_AgenticRAG/_index.qmd >}}
+
+# OpenClaw .NET C# 兩個主流實現版本 
+
+{{< include 04_OpenClawNet/_index.qmd >}}

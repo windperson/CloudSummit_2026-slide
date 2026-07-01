@@ -2,4 +2,33 @@
 # part4
 ---
 
-## OpenClaw .NET
+## OpenClaw .NET {.scrollable}
+
+目前有兩個採用 MAF 實作的 OpenClaw .NET C# MIT授權開源版本，分別是：
+
+* [OpenClaw.NET](https://github.com/clawdotnet/openclaw.net)
+
+屬於一個第三方公司AgentQi的開源專案 <https://agentqi.dev/docs/start-here>
+
+![]({{< meta part4_img_prefix >}}pics/openclawnet_01.png){fig-align="center"}
+
+* [OpenClaw .NET](https://github.com/elbruno/openclawnet)
+
+![]({{< meta part4_img_prefix >}}pics/openclawnet_02.png){fig-align="center"}
+
+屬於微軟一個工程師的開發專案，配合定期的微軟 Reactor 教學:  
+<https://elbruno.github.io/openclawnet/>
+
+---
+
+還有官方的step-by-step教學文章：
+
+Build your harness (claw) agent using Microsoft Agent Framework:
+<https://devblogs.microsoft.com/agent-framework/meet-your-agent-harness-and-claw/>
+
+以及在 MAF GitHub Repo 的範例程式碼:
+<https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/02-agents/Harness>
+
+## {.scrollable}
+
+![]({{< meta part4_img_prefix >}}pics/ai_forecast.png){fig-align="center" height="100%"}

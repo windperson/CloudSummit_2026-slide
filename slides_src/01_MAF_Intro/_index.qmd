@@ -187,3 +187,7 @@ MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`]
 * .NET C# Method
 * MCP endpoint
 * 另一個 `AIAgent`
+
+::: {.callout-tip}
+連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『[Fondry Hosted MCP Server](https://learn.microsoft.com/azure/foundry/mcp/get-started)』的話，建議使用第三方套件 [Agent Framework Toolkit](https://github.com/rwjdk/AgentFrameworkToolkit/) 會比較方便。
+:::
