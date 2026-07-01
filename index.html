@@ -438,19 +438,66 @@
 <p>30分鐘的錄影：<a href="https://youtu.be/oiJvbKReiTw?si=TbFcDLyc_6L_sHcj" class="uri">https://youtu.be/oiJvbKReiTw?si=TbFcDLyc_6L_sHcj</a></p>
 </div>
 </section>
-<section id="ms-orleans-整合-ai-agent-框架的幾個嘗試" class="slide level2">
-<h2>MS Orleans 整合 AI Agent 框架的幾個嘗試：</h2>
+<section id="orleans-整合-ai-agent-框架的幾個嘗試" class="slide level2">
+<h2>Orleans 整合 AI Agent 框架的幾個嘗試：</h2>
 <ul>
 <li><a href="https://github.com/microsoft/autogen/milestone/17">AutoGen v0.4.x-dotnet</a> (永遠不會完成的版本)</li>
 <li><a href="https://github.com/microsoft/project-oagents">project-oagents</a>（Semantic Kernel C# 版本 + MS Orleans）</li>
 </ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>概念上需要處理同時多人/多狀態又需有一定的回應速度需求的系統，可使用 Microsoft Orleans 來輔助實現這種 non-functional requiremenot</p>
+</div>
+</div>
+</div>
+</section>
+<section id="maf-配合使用-orleans-的範例-1" class="slide level2 scrollable">
+<h2>MAF 配合使用 Orleans 的範例 #1</h2>
+<p>圖片來源: <a href="https://dev.to/sreeni5018/building-stateful-ai-agents-at-scale-with-microsoft-orleans-4n14">Building Stateful AI Agents at Scale with Microsoft Orleans</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./02_Orleans_Intro/pics/MAF_on_Olreans_examp01.webp" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<p>重點是在 Orleans 的 Grain 中整合 MAF AIAgent 的程式寫法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="3-5,12-16"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> OrchestrationAgentGrain <span class="op">:</span> Grain<span class="op">,</span> IOrchestrationAgentGrain</span>
+<span id="cb4-2"><a href=""></a><span class="op">{</span></span>
+<span id="cb4-3"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _orchestrationAgent<span class="op">;</span></span>
+<span id="cb4-4"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _ragAgent<span class="op">;</span></span>
+<span id="cb4-5"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _searchAgent<span class="op">;</span></span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a>    <span class="co">/***/</span></span>
+<span id="cb4-8"><a href=""></a></span>
+<span id="cb4-9"><a href=""></a>    <span class="kw">private</span> async Task <span class="fu">InitializeAgentFrameworkAsync</span><span class="op">()</span></span>
+<span id="cb4-10"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb4-11"><a href=""></a>        <span class="co">// Create orchestration agent with tools</span></span>
+<span id="cb4-12"><a href=""></a>        _orchestrationAgent <span class="op">=</span> <span class="kw">new</span> <span class="fu">ChatClientAgent</span><span class="op">(</span></span>
+<span id="cb4-13"><a href=""></a>            _chatClient<span class="op">,</span></span>
+<span id="cb4-14"><a href=""></a>            instructions<span class="op">:</span> @<span class="st">"You are an intelligent orchestration agent..."</span><span class="op">,</span></span>
+<span id="cb4-15"><a href=""></a>            name<span class="op">:</span> <span class="st">"orchestration_agent"</span><span class="op">,</span></span>
+<span id="cb4-16"><a href=""></a>            tools<span class="op">:</span> <span class="kw">new</span><span class="op">[]</span> <span class="op">{</span> ragTool<span class="op">,</span> searchTool <span class="op">});</span></span>
+<span id="cb4-17"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb4-18"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="maf-配合使用-orleans-的範例-2" class="slide level2 scrollable">
+<h2>MAF 配合使用 Orleans 的範例 #2</h2>
+<p>敬請期待😆(還真剛好就是 2026/7/2 今晚)</p>
+<p><a href="https://www.youtube.com/live/OQqhQpHR3Gg" class="uri">https://www.youtube.com/live/OQqhQpHR3Gg</a></p>
+<iframe width="1300" height="700" src="https://www.youtube.com/embed/OQqhQpHR3Gg?si=3jbxWFFyK7KHswOD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 </section></section>
 <section>
 <section id="azure-ai-search-agentic-retrieval-agenticrag多代理範例" class="title-slide slide level1 center">
 <h1>Azure AI Search Agentic Retrieval<br>(AgenticRAG)多代理範例</h1>
 
 </section>
-<section id="azure-ai-search-agentic-retrieval-agenticrag" class="slide level2">
+<section id="azure-ai-search-agentic-retrieval-agenticrag" class="slide level2 scrollable">
 <h2>Azure AI Search Agentic Retrieval<br>(AgenticRAG)</h2>
 <p>Azure AI Search 服務的新功能，提供 AgenticRAG (Agentic Retrieval-Augmented Generation) 的能力，讓開發者可以配合Microsoft Foundry 建立AI Agent的雲端系統，透過 Azure AI Search 服務進行資料檢索與回應生成。</p>
 <div class="quarto-figure quarto-figure-center">
@@ -458,12 +505,28 @@
 <p><img data-src="./03_AgenticRAG/pics/agentic-retrieval-architecture.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
 </figure>
 </div>
+<p>這跟之前傳統的 RAG (Retrieval-Augmented Generation) 架構不同之處是，AgenticRAG 會將使用者的查詢請求使用 LLM AI Agent 進行分析，拆成多個 AI Agent 的動作，將查詢請求轉換成多個檢索任務/工具呼叫，最後將結果進行整合與生成回應。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./03_AgenticRAG/pics/agentic-retrieval-example.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<p>圖片來源: <a href="https://learn.microsoft.com/azure/search/agentic-retrieval-overview">Agentic retrieval in Azure AI Search</a></p>
 </section>
 <section id="azure-ai-search-agentic-retrieval-範例架構" class="slide level2">
 <h2>Azure AI Search Agentic Retrieval 範例架構</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./03_AgenticRAG/pics/iThome_CloudSummit_2026_AgenticRAG.svg" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+</section>
+<section id="範例程式" class="slide level2">
+<h2>範例程式</h2>
+<p><a href="https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/AgenticSearchOpenAiResponsesApi">範例程式專案:</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./03_AgenticRAG/pics/rider_demo.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
 </figure>
 </div>
 
