@@ -127,7 +127,7 @@ AIAgent agent = new ChatClientAgent(chatClient, name: agentName, instructions: a
 
 ## {.scrollable}
 
-在跟 AIAgent 互動的客戶端程式碼，都可以使用 MAF 提供的 [AgentSession](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.agentsession) API 取得對話狀態資料：
+在跟 `AIAgent` 物件互動（使用 `RunAsync()` / `RunStreamingAsync()` 呼叫）的客戶端程式碼，都可以使用 MAF 提供的 [AgentSession](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.agentsession) API 取得對話狀態資料：
 
 ```{.csharp}
 // 取得 AgentSession 
@@ -144,7 +144,9 @@ AgentSession resumed = await agent.DeserializeSessionAsync(serialized);
 ```
 
 
-在 MAF 框架層，預設自動套用『[`InMemoryChatHistoryProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest)』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。
+在 MAF 框架層，預設自動套用內建『[`InMemoryChatHistoryProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest)』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。
+
+`InMemoryChatHistoryProvider` 也內建提供了幾種[壓縮對話記錄](https://learn.microsoft.com/agent-framework/agents/conversations/storage?pivots=programming-language-csharp#reducing-in-memory-history-size)的機制(`OOXXChatReducer`)。
 
 
 目前除了自己繼承 [`ChatHistoryProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.chathistoryprovider) 抽象類別來實作自訂的對話記錄儲存之外，也可以使用 MAF 提供的另一個 [`CosmosDbChatHistoryProvider`](https://learn.microsoft.coms/dotnet/api/microsoft.agents.ai.cosmoschathistoryprovider) 實作，使用 [Azure Cosmos DB](https://azure.microsoft.com/products/cosmos-db/) 儲存。
@@ -156,3 +158,32 @@ AgentSession resumed = await agent.DeserializeSessionAsync(serialized);
 圖片來源: [Chat History Providers in Microsoft Agent Framework — Making Agents Remember](https://medium.com/microsoftazure/chat-history-providers-in-microsoft-agent-framework-making-agents-remember-f99476c88d3f)
 
 :::
+
+---
+
+::: {.callout-tip}
+## "Context Provider"
+
+MAF 除了對話記錄專屬的 `ChatHistoryProvider` 之外，還提供了另一個抽象類別 [`AIContextProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.aicontextprovider?view=agent-framework-dotnet-latest) 讓開發者繼承該類別，自訂所有跟LLM互動上下文(Context)的儲存方式。
+
+:::
+
+```{.csharp code-line-numbers="6-8"}
+AIAgent agent = new OpenAIClient("<your_api_key>")
+    .GetChatClient(modelName)
+    .AsAIAgent(new ChatClientAgentOptions()
+    {
+        ChatOptions = new() { Instructions = "You are a helpful assistant." },
+        AIContextProviders = [
+            new MyCustomMemoryProvider()
+        ],
+    });
+```
+
+## Toolling & MCP(Model Control Protocol) 呼叫
+
+MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.ai.aitool)，所以就是所有可以轉換成 `AITool` 的物件，都可以被 MAF 的 `AIAgent` 呼叫:
+
+* .NET C# Method
+* MCP endpoint
+* 另一個 `AIAgent`
