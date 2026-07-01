@@ -2,6 +2,15 @@
 # part2
 ---
 
-## Microsoft Orleans 簡介
+## Microsoft Orleans 簡介{.scrollable}
 
 
+基本概念在 .NET 7 之後大同小異，所以先偷懶炒一下冷飯  
+(投影片素材環保複用😆)
+
+```{=html}
+<iframe src="https://1drv.ms/p/c/6b28b74ef8d58d8c/IQSMjdX4TrcoIIBrxy8cAAAAASG0JQu53j_2uTotdhgkt-o?wdAr=1.7777777777777777" width="1300px" height="800px" frameborder="0" title="PowerPoint Viewer">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+```
+:::{.text-center .smaller}
+30分鐘的錄影：<https://youtu.be/oiJvbKReiTw?si=TbFcDLyc_6L_sHcj>
+:::
