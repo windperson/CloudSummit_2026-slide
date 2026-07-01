@@ -423,6 +423,19 @@
 <li>MCP endpoint</li>
 <li>另一個 <code>AIAgent</code></li>
 </ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『<a href="https://learn.microsoft.com/azure/foundry/mcp/get-started">Fondry Hosted MCP Server</a>』的話，建議使用第三方套件 <a href="https://github.com/rwjdk/AgentFrameworkToolkit/">Agent Framework Toolkit</a> 會比較方便。</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="microsoft-orleans-簡介-結合-maf-建立多代理系統" class="title-slide slide level1 center">
@@ -586,6 +599,48 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./03_AgenticRAG/pics/postman_query_mcp_endpoint.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="openclaw-.net-c-兩個主流實現版本" class="title-slide slide level1 center">
+<h1>OpenClaw .NET C# 兩個主流實現版本</h1>
+
+</section>
+<section id="openclaw-.net" class="slide level2 scrollable">
+<h2>OpenClaw .NET</h2>
+<p>目前有兩個採用 MAF 實作的 OpenClaw .NET C# MIT授權開源版本，分別是：</p>
+<ul>
+<li><a href="https://github.com/clawdotnet/openclaw.net">OpenClaw.NET</a></li>
+</ul>
+<p>屬於一個第三方公司AgentQi的開源專案 <a href="https://agentqi.dev/docs/start-here" class="uri">https://agentqi.dev/docs/start-here</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./04_OpenClawNet/pics/openclawnet_01.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<ul>
+<li><a href="https://github.com/elbruno/openclawnet">OpenClaw .NET</a></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./04_OpenClawNet/pics/openclawnet_02.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<p>屬於微軟一個工程師的開發專案，配合定期的微軟 Reactor 教學:<br>
+<a href="https://elbruno.github.io/openclawnet/" class="uri">https://elbruno.github.io/openclawnet/</a></p>
+</section>
+<section class="slide level2">
+
+<p>還有官方的step-by-step教學文章：</p>
+<p>Build your harness (claw) agent using Microsoft Agent Framework: <a href="https://devblogs.microsoft.com/agent-framework/meet-your-agent-harness-and-claw/" class="uri">https://devblogs.microsoft.com/agent-framework/meet-your-agent-harness-and-claw/</a></p>
+<p>以及在 MAF GitHub Repo 的範例程式碼: <a href="https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/02-agents/Harness" class="uri">https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/02-agents/Harness</a></p>
+</section>
+<section id="section-2" class="slide level2 scrollable">
+<h2></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./04_OpenClawNet/pics/ai_forecast.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
 </figure>
 </div>
 
