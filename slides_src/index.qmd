@@ -15,15 +15,15 @@ format:
             text: |
                 <style>
                 .center-xy {
-                margin: 0;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                -ms-transform: translateY(-50%), translateX(-50%);
-                transform: translateY(-50%), translateX(-50%);
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    -ms-transform: translateY(-50%), translateX(-50%);
+                    transform: translateY(-50%), translateX(-50%);
                 }
                 .text-center {
-                text-align: center;
+                    text-align: center;
                 }
                 </style>
 from: markdown+emoji
@@ -41,6 +41,7 @@ code-annotations: below
 * OpenClaw .NET C# 兩個主流實現版本 
 
 :::
+
 ::: {.column width="20%"}
 
 {{< qrcode https://windperson.github.io/CloudSummit_2026-slide/ width=240 height=240 >}}

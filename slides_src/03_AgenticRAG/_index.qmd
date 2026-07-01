@@ -1,0 +1,5 @@
+---
+# part3
+---
+
+## Azure AI Search Agentic Retrieval<br/>(AgenticRAG)

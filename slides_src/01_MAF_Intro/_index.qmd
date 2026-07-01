@@ -10,7 +10,11 @@ Microsoft Agent Framework (以下簡稱 _MAF_) 由微軟開發的MIT授權開源
 
 ::: {.column width="35%"}
 
+:::: {layout="[[-1], [1], [-1]]"}
+
 ![]({{< meta part1_img_prefix >}}pics/MAF_logo.png){fig-align="center"}
+
+::::
 
 :::
 
@@ -19,6 +23,8 @@ Microsoft Agent Framework (以下簡稱 _MAF_) 由微軟開發的MIT授權開源
 GitHub<br/><https://aka.ms/AgentFramework>
 
 官網說明<br/><https://learn.microsoft.com/agent-framework>
+
+[GitHub介紹文](https://github.com/orgs/microsoft-foundry/discussions/177#discussion-8970075)
 
 Discord討論區<br/>[Microsoft Foundry Discrod 伺服器](https://discord.gg/b5zjErwbQM)<br/>的 **# agent-framework** 頻道
 
@@ -98,7 +104,7 @@ AIAgent agent = new ChatClientAgent(chatClient, name: agentName, instructions: a
 
 [範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/DemoLocalAIAgent) 
 
-![]({{< meta part1_img_prefix >}}pics/demo_LMStudio.png){fig-align="center" width="100%"}
+![]({{< meta part1_img_prefix >}}pics/demo_LMStudio.png){fig-align="center" height="100%"}
 
 
 ## MAF Session 管理（保存/恢復）{.scrollable}
@@ -107,11 +113,11 @@ AIAgent agent = new ChatClientAgent(chatClient, name: agentName, instructions: a
 
 ### 使用 MAF 框架的 Session 管理功能
 
-![]({{< meta part1_img_prefix >}}pics/chat-history-client-managed.webp){fig-align="center"}
+![]({{< meta part1_img_prefix >}}pics/chat-history-client-managed.webp){fig-align="center" width="100%"}
 
 ### 使用底層 LLM Hosting Service 自己的 Session 管理功能
 
-![]({{< meta part1_img_prefix >}}pics/chat-history-service-managed.webp){fig-align="center"}
+![]({{< meta part1_img_prefix >}}pics/chat-history-service-managed.webp){fig-align="center" width="100%"}
 
 ::: {style="font-size: 60%; text-align: center;"}
 
@@ -136,3 +142,17 @@ var serialized = agent.SerializeSession(session);
 // 恢復
 AgentSession resumed = await agent.DeserializeSessionAsync(serialized);
 ```
+
+
+在 MAF 框架層，預設自動套用『[`InMemoryChatHistoryProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest)』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。
+
+
+目前除了自己繼承 [`ChatHistoryProvider`](https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.chathistoryprovider) 抽象類別來實作自訂的對話記錄儲存之外，也可以使用 MAF 提供的另一個 [`CosmosDbChatHistoryProvider`](https://learn.microsoft.coms/dotnet/api/microsoft.agents.ai.cosmoschathistoryprovider) 實作，使用 [Azure Cosmos DB](https://azure.microsoft.com/products/cosmos-db/) 儲存。
+
+![]({{< meta part1_img_prefix >}}pics/MAF_CosmosChatHistoryProvider_arch.webp){fig-align="center" height="100%"}
+
+::: {style="font-size: 60%; text-align: center;"}
+
+圖片來源: [Chat History Providers in Microsoft Agent Framework — Making Agents Remember](https://medium.com/microsoftazure/chat-history-providers-in-microsoft-agent-framework-making-agents-remember-f99476c88d3f)
+
+:::
