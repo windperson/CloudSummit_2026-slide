@@ -18,8 +18,32 @@ Azure AI Search 服務的新功能，提供 AgenticRAG (Agentic Retrieval-Augmen
 
 ![]({{< meta part3_img_prefix >}}pics/iThome_CloudSummit_2026_AgenticRAG.svg){fig-align="center" height="100%"}
 
-## 範例程式
+## 範例程式{.scrollable}
 
 [範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/AgenticSearchOpenAiResponsesApi) 
 
 ![]({{< meta part3_img_prefix >}}pics/rider_demo.png){fig-align="center" height="100%"}
+
+::: {.callout-tip}
+Agentic Retrival 的服務需要設定 Azure AI Search 服務和 Microsoft Foundry 彼此互相叫用的正確[Managed Identity role](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#search-index-data-reader)，否則不會work
+:::
+
+幾張截圖:
+
+![]({{< meta part3_img_prefix >}}pics/MSFoundry_permission_to_AzureSearch.png){fig-align="center" height="100%"}
+
+![]({{< meta part3_img_prefix >}}pics/AzureSearch_permission.png){fig-align="center" height="100%"}
+
+::: {.callout-caution }
+由於 C# SDK 目前還在 Preview 階段且每次新版本都極有可能不相容，程式碼範例可能會隨時變動，用 AI Coding 工具開發時請小心自己身為人類的高血壓發作😅
+:::
+
+---
+
+::: {.callout-tip}
+設定好的 Azure AI Search 服務目前預設有 [MCP endpoint 可配合 Auth Token 叫用](https://learn.microsoft.com/en-us/azure/search/agentic-retrieval-how-to-retrieve?tabs=2026-05-01-preview&pivots=csharp#mcp-endpoint-format)，所以除了雲端 LLM 之外，地端的也可以使用
+:::
+
+[範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/RetrivalDataDemo) 
+
+![]({{< meta part3_img_prefix >}}pics/postman_query_mcp_endpoint.png){fig-align="center" height="100%"}
