@@ -521,12 +521,71 @@
 </figure>
 </div>
 </section>
-<section id="範例程式" class="slide level2">
+<section id="範例程式" class="slide level2 scrollable">
 <h2>範例程式</h2>
 <p><a href="https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/AgenticSearchOpenAiResponsesApi">範例程式專案:</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./03_AgenticRAG/pics/rider_demo.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Agentic Retrival 的服務需要設定 Azure AI Search 服務和 Microsoft Foundry 彼此互相叫用的正確<a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#search-index-data-reader">Managed Identity role</a>，否則不會work</p>
+</div>
+</div>
+</div>
+<p>幾張截圖:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./03_AgenticRAG/pics/MSFoundry_permission_to_AzureSearch.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./03_AgenticRAG/pics/AzureSearch_permission.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>由於 C# SDK 目前還在 Preview 階段且每次新版本都極有可能不相容，程式碼範例可能會隨時變動，用 AI Coding 工具開發時請小心自己身為人類的高血壓發作😅</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>設定好的 Azure AI Search 服務目前預設有 <a href="https://learn.microsoft.com/en-us/azure/search/agentic-retrieval-how-to-retrieve?tabs=2026-05-01-preview&amp;pivots=csharp#mcp-endpoint-format">MCP endpoint 可配合 Auth Token 叫用</a>，所以除了雲端 LLM 之外，地端的也可以使用</p>
+</div>
+</div>
+</div>
+<p><a href="https://github.com/windperson/DemoMsAgentFw/tree/master/AzureSearchAgenticRAG/RetrivalDataDemo">範例程式專案:</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./03_AgenticRAG/pics/postman_query_mcp_endpoint.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
 </figure>
 </div>
 
