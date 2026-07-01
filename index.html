@@ -193,15 +193,15 @@
   </style>
   <style>
   .center-xy {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translateY(-50%), translateX(-50%);
-  transform: translateY(-50%), translateX(-50%);
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translateY(-50%), translateX(-50%);
+      transform: translateY(-50%), translateX(-50%);
   }
   .text-center {
-  text-align: center;
+      text-align: center;
   }
   </style>
 </head>
@@ -258,14 +258,26 @@
 <p>Microsoft Agent Framework (以下簡稱 <em>MAF</em>) 由微軟開發的MIT授權開源 AI Agent（人工智慧代理）系統開發框架。</p>
 <div class="columns">
 <div class="column" style="width:35%;">
+<div class="quarto-layout-panel" data-layout="[[-1], [1], [-1]]">
+<div class="quarto-layout-row">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./01_MAF_Intro/pics/MAF_logo.png" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
+</div>
+</div>
+</div>
 </div><div class="column" style="width:65%;">
 <p>GitHub<br><a href="https://aka.ms/AgentFramework" class="uri">https://aka.ms/AgentFramework</a></p>
 <p>官網說明<br><a href="https://learn.microsoft.com/agent-framework" class="uri">https://learn.microsoft.com/agent-framework</a></p>
+<p><a href="https://github.com/orgs/microsoft-foundry/discussions/177#discussion-8970075">GitHub介紹文</a></p>
 <p>Discord討論區<br><a href="https://discord.gg/b5zjErwbQM">Microsoft Foundry Discrod 伺服器</a><br>的 <strong># agent-framework</strong> 頻道</p>
 </div></div>
 <p><a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai">.NET C#</a> 和 <a href="https://learn.microsoft.com/python/api/agent-framework-core/agent_framework">Python</a> API，除了控管 LLM 的 AI Agent 之外，亦有多代理工作流(Workflow)協調功能，使開發者能 <em>輕鬆</em> 創建適應不同場景的智能代理，實現複雜多AI Agent 系統。</p>
@@ -327,21 +339,25 @@
 <span id="cb1-12"><a href=""></a></span>
 <span id="cb1-13"><a href=""></a>AIAgent agent <span class="op">=</span> <span class="kw">new</span> <span class="fu">ChatClientAgent</span><span class="op">(</span>chatClient<span class="op">,</span> name<span class="op">:</span> agentName<span class="op">,</span> instructions<span class="op">:</span> agentInstructions<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://github.com/windperson/DemoMsAgentFw/tree/master/DemoLocalAIAgent">範例程式專案:</a></p>
-
-<img data-src="./01_MAF_Intro/pics/demo_LMStudio.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./01_MAF_Intro/pics/demo_LMStudio.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+</section>
 <section id="maf-session-管理保存恢復" class="slide level2 scrollable">
 <h2>MAF Session 管理（保存/恢復）</h2>
 <p>對話記錄(Session)的保存/恢復，也根據底層使用不同的 LLM Hosting Service，MAF 提供了不同的 Session 管理方式：</p>
 <h3 id="使用-maf-框架的-session-管理功能">使用 MAF 框架的 Session 管理功能</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./01_MAF_Intro/pics/chat-history-client-managed.webp" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="./01_MAF_Intro/pics/chat-history-client-managed.webp" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 <h3 id="使用底層-llm-hosting-service-自己的-session-管理功能">使用底層 LLM Hosting Service 自己的 Session 管理功能</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./01_MAF_Intro/pics/chat-history-service-managed.webp" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="./01_MAF_Intro/pics/chat-history-service-managed.webp" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 <div style="font-size: 60%; text-align: center;">
@@ -362,11 +378,26 @@
 <span id="cb2-9"><a href=""></a></span>
 <span id="cb2-10"><a href=""></a><span class="co">// 恢復</span></span>
 <span id="cb2-11"><a href=""></a>AgentSession resumed <span class="op">=</span> await agent<span class="op">.</span><span class="fu">DeserializeSessionAsync</span><span class="op">(</span>serialized<span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 MAF 框架層，預設自動套用『<a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.inmemorychathistoryprovider?view=agent-framework-dotnet-latest"><code>InMemoryChatHistoryProvider</code></a>』將對話記錄在記憶體中，當程式結束時，互動對話記錄就會消失。</p>
+<p>目前除了自己繼承 <a href="https://learn.microsoft.com/dotnet/api/microsoft.agents.ai.chathistoryprovider"><code>ChatHistoryProvider</code></a> 抽象類別來實作自訂的對話記錄儲存之外，也可以使用 MAF 提供的另一個 <a href="https://learn.microsoft.coms/dotnet/api/microsoft.agents.ai.cosmoschathistoryprovider"><code>CosmosDbChatHistoryProvider</code></a> 實作，使用 <a href="https://azure.microsoft.com/products/cosmos-db/">Azure Cosmos DB</a> 儲存。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./01_MAF_Intro/pics/MAF_CosmosChatHistoryProvider_arch.webp" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<div style="font-size: 60%; text-align: center;">
+<p>圖片來源: <a href="https://medium.com/microsoftazure/chat-history-providers-in-microsoft-agent-framework-making-agents-remember-f99476c88d3f">Chat History Providers in Microsoft Agent Framework — Making Agents Remember</a></p>
+</div>
 </section></section>
+<section>
 <section id="microsoft-orleans-簡介-結合-maf-建立多代理系統" class="title-slide slide level1 center">
 <h1>Microsoft Orleans 簡介<br>結合 MAF 建立多代理系統</h1>
 
 </section>
+<section id="microsoft-orleans-簡介" class="slide level2">
+<h2>Microsoft Orleans 簡介</h2>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
