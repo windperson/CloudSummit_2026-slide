@@ -196,7 +196,7 @@ MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`]
 
 MAF 的 [Agent Skill](https://learn.microsoft.com/agent-framework/agents/skills?pivots=programming-language-csharp) 載入機制可以是讀純文字 .md 檔或是由 CSharp code 裡的文字注入
 
-## Agentic Workflow
+## Agent Workflow
 
 先記得它有很多種花俏的就好惹 (比 AutoGen 還多樣)
 
@@ -210,4 +210,4 @@ C＃還沒好的
 
 * AG-UI
 * DevUI
-* Dynamic Gen Code
+* Dynamic Gen Code & Execute

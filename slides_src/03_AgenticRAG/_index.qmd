@@ -16,7 +16,7 @@ Azure AI Search 服務的新功能，提供 AgenticRAG (Agentic Retrieval-Augmen
 
 ## Azure AI Search Agentic Retrieval 範例架構
 
-![]({{< meta part3_img_prefix >}}pics/iThome_CloudSummit_2026_AgenticRAG.svg){fig-align="center" height="100%"}
+![]({{< meta part3_img_prefix >}}pics/iThome_CloudSummit_2026_AgenticRAG.png){fig-align="center" height="100%"}
 
 ## 範例程式{.scrollable}
 
