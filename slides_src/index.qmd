@@ -61,3 +61,7 @@ code-annotations: below
 # Microsoft Orleans 簡介<br/>結合 MAF 建立多代理系統
 
 {{< include 02_Orleans_Intro/_index.qmd >}}
+
+# Azure AI Search Agentic Retrieval<br/>(AgenticRAG)多代理範例 
+
+{{< include 03_AgenticRAG/_index.qmd >}}
