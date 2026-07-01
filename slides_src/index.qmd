@@ -69,3 +69,38 @@ code-annotations: below
 # OpenClaw .NET C# 兩個主流實現版本 
 
 {{< include 04_OpenClawNet/_index.qmd >}}
+
+# 其他參考資料🏫{.smallest}
+
+::: {style="overflow-y: scroll; height: 860px;"}
+
+Agent definition:<br/>
+<https://learn.microsoft.com/en-us/dotnet/ai/conceptual/agents>
+
+Aspire for agents: Transform how you build and deploy distributed apps<br/>
+<https://build.microsoft.com/en-US/sessions/BRK205>
+
+Microsoft Agent Framework<br/>
+<https://devblogs.microsoft.com/dotnet/introducing-microsoft-agent-framework-preview/>
+<https://devblogs.microsoft.com/foundry/introducing-microsoft-agent-framework-the-open-source-engine-for-agentic-ai-apps/>
+<https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/>
+
+Microsoft.Agents.AI nuget package:<br/>
+<https://www.nuget.org/packages/Microsoft.Agents.AI>
+
+Chat History Storage Patterns:<br/>
+<https://devblogs.microsoft.com/agent-framework/chat-history-storage-patterns-in-microsoft-agent-framework/>
+<https://learn.microsoft.com/agent-framework/integrations/chat-history-memory-provider?pivots=programming-language-csharp>
+
+eShopLite (many applied LLM AI example project): <https://github.com/Azure-Samples/eShopLite>
+
+.NET 的 AI Agent 開發框架選型： <https://mp.weixin.qq.com/s/lfJT6GshOuC3tduSMp4E_Q>
+
+What is Agentic RAG? (AI Agents for Beginners):<br/>
+<https://learn.microsoft.com/en-us/shows/ai-agents-for-beginners/what-is-agentic-rag>
+
+Build your harness (claw) agent using Microsoft Agent Framework:<br/>
+<https://devblogs.microsoft.com/agent-framework/meet-your-agent-harness-and-claw/>
+<https://github.com/microsoft/agent-framework/tree/main/dotnet/samples/02-agents/Harness>
+
+:::
