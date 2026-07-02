@@ -180,7 +180,7 @@ AIAgent agent = new OpenAIClient("<your_api_key>")
     });
 ```
 
-## Toolling & MCP(Model Control Protocol) 呼叫
+## Toolling & MCP(Model Control Protocol) 呼叫{.scrollable}
 
 MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`](https://learn.microsoft.com/dotnet/api/microsoft.extensions.ai.aitool)，所以就是所有可以轉換成 `AITool` 的物件，都可以被 MAF 的 `AIAgent` 呼叫:
 
@@ -189,8 +189,34 @@ MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為[`AITool`]
 * 另一個 `AIAgent`
 
 ::: {.callout-tip}
-連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『[Fondry Hosted MCP Server](https://learn.microsoft.com/azure/foundry/mcp/get-started)』的話，建議使用第三方套件 [Agent Framework Toolkit](https://github.com/rwjdk/AgentFrameworkToolkit/) 會比較方便。
+連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『[Foundry Hosted MCP Server](https://learn.microsoft.com/azure/foundry/mcp/get-started)』的話，建議使用第三方套件 [Agent Framework Toolkit](https://github.com/rwjdk/AgentFrameworkToolkit/) 會比較方便。
+
 :::
+
+
+```{.csharp code-line-numbers="1,14"}
+await using McpClientTools mcpClientTools = await aiToolsFactory.GetToolsFromRemoteMcpAsync(mcpServerUrl);
+
+var chatClient = new OpenAIClient(
+        new ApiKeyCredential(apiKey),
+        new OpenAIClientOptions { Endpoint = new Uri(endPoint) })
+    .GetChatClient(model);
+
+AIAgent agent = chatClient.AsAIAgent(new ChatClientAgentOptions()
+{
+    Name = "Todo list manager",
+    ChatOptions = new ChatOptions()
+    {
+        Instructions = agentInstructions,
+        Tools = [..mcpClientTools.Tools]
+    }
+});
+```
+
+[範例程式專案:](https://github.com/windperson/DemoMsAgentFw/tree/master/AgentToolcalling/AgentCallMcpDemo) 
+
+![]({{< meta part1_img_prefix >}}pics/AgentCallMcpDemo.png){fig-align="center" height="100%"}
+
 
 ## Skill 
 
