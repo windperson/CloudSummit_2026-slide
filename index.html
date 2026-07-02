@@ -415,7 +415,7 @@
 <span id="cb3-8"><a href=""></a>        <span class="op">],</span></span>
 <span id="cb3-9"><a href=""></a>    <span class="op">});</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="toolling-mcpmodel-control-protocol-呼叫" class="slide level2">
+<section id="toolling-mcpmodel-control-protocol-呼叫" class="slide level2 scrollable">
 <h2>Toolling &amp; MCP(Model Control Protocol) 呼叫</h2>
 <p>MAF 將 LLM 的工具/MCP呼叫抽象化，最上層的抽象類別為<a href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.ai.aitool"><code>AITool</code></a>，所以就是所有可以轉換成 <code>AITool</code> 的物件，都可以被 MAF 的 <code>AIAgent</code> 呼叫:</p>
 <ul>
@@ -432,9 +432,31 @@
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p>連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『<a href="https://learn.microsoft.com/azure/foundry/mcp/get-started">Fondry Hosted MCP Server</a>』的話，建議使用第三方套件 <a href="https://github.com/rwjdk/AgentFrameworkToolkit/">Agent Framework Toolkit</a> 會比較方便。</p>
+<p>連接遠端 MCP endpoint 的方式，如果不是 host 在 Microsoft Foundry 專案上的『<a href="https://learn.microsoft.com/azure/foundry/mcp/get-started">Foundry Hosted MCP Server</a>』的話，建議使用第三方套件 <a href="https://github.com/rwjdk/AgentFrameworkToolkit/">Agent Framework Toolkit</a> 會比較方便。</p>
 </div>
 </div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="1,14"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href=""></a>await <span class="kw">using</span> McpClientTools mcpClientTools <span class="op">=</span> await aiToolsFactory<span class="op">.</span><span class="fu">GetToolsFromRemoteMcpAsync</span><span class="op">(</span>mcpServerUrl<span class="op">);</span></span>
+<span id="cb4-2"><a href=""></a></span>
+<span id="cb4-3"><a href=""></a><span class="dt">var</span> chatClient <span class="op">=</span> <span class="kw">new</span> <span class="fu">OpenAIClient</span><span class="op">(</span></span>
+<span id="cb4-4"><a href=""></a>        <span class="kw">new</span> <span class="fu">ApiKeyCredential</span><span class="op">(</span>apiKey<span class="op">),</span></span>
+<span id="cb4-5"><a href=""></a>        <span class="kw">new</span> OpenAIClientOptions <span class="op">{</span> Endpoint <span class="op">=</span> <span class="kw">new</span> <span class="fu">Uri</span><span class="op">(</span>endPoint<span class="op">)</span> <span class="op">})</span></span>
+<span id="cb4-6"><a href=""></a>    <span class="op">.</span><span class="fu">GetChatClient</span><span class="op">(</span>model<span class="op">);</span></span>
+<span id="cb4-7"><a href=""></a></span>
+<span id="cb4-8"><a href=""></a>AIAgent agent <span class="op">=</span> chatClient<span class="op">.</span><span class="fu">AsAIAgent</span><span class="op">(</span><span class="kw">new</span> <span class="fu">ChatClientAgentOptions</span><span class="op">()</span></span>
+<span id="cb4-9"><a href=""></a><span class="op">{</span></span>
+<span id="cb4-10"><a href=""></a>    Name <span class="op">=</span> <span class="st">"Todo list manager"</span><span class="op">,</span></span>
+<span id="cb4-11"><a href=""></a>    ChatOptions <span class="op">=</span> <span class="kw">new</span> <span class="fu">ChatOptions</span><span class="op">()</span></span>
+<span id="cb4-12"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb4-13"><a href=""></a>        Instructions <span class="op">=</span> agentInstructions<span class="op">,</span></span>
+<span id="cb4-14"><a href=""></a>        Tools <span class="op">=</span> <span class="op">[..</span><span class="fu">mcpClientTools</span><span class="op">.</span><span class="fu">Tools</span><span class="op">]</span></span>
+<span id="cb4-15"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb4-16"><a href=""></a><span class="op">});</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://github.com/windperson/DemoMsAgentFw/tree/master/AgentToolcalling/AgentCallMcpDemo">範例程式專案:</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./01_MAF_Intro/pics/AgentCallMcpDemo.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
 </div>
 </section>
 <section id="skill" class="slide level2">
@@ -502,24 +524,24 @@
 </figure>
 </div>
 <p>重點是在 Orleans 的 Grain 中整合 MAF AIAgent 的程式寫法：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="3-5,12-16"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> OrchestrationAgentGrain <span class="op">:</span> Grain<span class="op">,</span> IOrchestrationAgentGrain</span>
-<span id="cb4-2"><a href=""></a><span class="op">{</span></span>
-<span id="cb4-3"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _orchestrationAgent<span class="op">;</span></span>
-<span id="cb4-4"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _ragAgent<span class="op">;</span></span>
-<span id="cb4-5"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _searchAgent<span class="op">;</span></span>
-<span id="cb4-6"><a href=""></a></span>
-<span id="cb4-7"><a href=""></a>    <span class="co">/***/</span></span>
-<span id="cb4-8"><a href=""></a></span>
-<span id="cb4-9"><a href=""></a>    <span class="kw">private</span> async Task <span class="fu">InitializeAgentFrameworkAsync</span><span class="op">()</span></span>
-<span id="cb4-10"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb4-11"><a href=""></a>        <span class="co">// Create orchestration agent with tools</span></span>
-<span id="cb4-12"><a href=""></a>        _orchestrationAgent <span class="op">=</span> <span class="kw">new</span> <span class="fu">ChatClientAgent</span><span class="op">(</span></span>
-<span id="cb4-13"><a href=""></a>            _chatClient<span class="op">,</span></span>
-<span id="cb4-14"><a href=""></a>            instructions<span class="op">:</span> @<span class="st">"You are an intelligent orchestration agent..."</span><span class="op">,</span></span>
-<span id="cb4-15"><a href=""></a>            name<span class="op">:</span> <span class="st">"orchestration_agent"</span><span class="op">,</span></span>
-<span id="cb4-16"><a href=""></a>            tools<span class="op">:</span> <span class="kw">new</span><span class="op">[]</span> <span class="op">{</span> ragTool<span class="op">,</span> searchTool <span class="op">});</span></span>
-<span id="cb4-17"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb4-18"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="3-5,12-16"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> OrchestrationAgentGrain <span class="op">:</span> Grain<span class="op">,</span> IOrchestrationAgentGrain</span>
+<span id="cb5-2"><a href=""></a><span class="op">{</span></span>
+<span id="cb5-3"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _orchestrationAgent<span class="op">;</span></span>
+<span id="cb5-4"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _ragAgent<span class="op">;</span></span>
+<span id="cb5-5"><a href=""></a>    <span class="kw">private</span> AIAgent<span class="op">?</span> _searchAgent<span class="op">;</span></span>
+<span id="cb5-6"><a href=""></a></span>
+<span id="cb5-7"><a href=""></a>    <span class="co">/***/</span></span>
+<span id="cb5-8"><a href=""></a></span>
+<span id="cb5-9"><a href=""></a>    <span class="kw">private</span> async Task <span class="fu">InitializeAgentFrameworkAsync</span><span class="op">()</span></span>
+<span id="cb5-10"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb5-11"><a href=""></a>        <span class="co">// Create orchestration agent with tools</span></span>
+<span id="cb5-12"><a href=""></a>        _orchestrationAgent <span class="op">=</span> <span class="kw">new</span> <span class="fu">ChatClientAgent</span><span class="op">(</span></span>
+<span id="cb5-13"><a href=""></a>            _chatClient<span class="op">,</span></span>
+<span id="cb5-14"><a href=""></a>            instructions<span class="op">:</span> @<span class="st">"You are an intelligent orchestration agent..."</span><span class="op">,</span></span>
+<span id="cb5-15"><a href=""></a>            name<span class="op">:</span> <span class="st">"orchestration_agent"</span><span class="op">,</span></span>
+<span id="cb5-16"><a href=""></a>            tools<span class="op">:</span> <span class="kw">new</span><span class="op">[]</span> <span class="op">{</span> ragTool<span class="op">,</span> searchTool <span class="op">});</span></span>
+<span id="cb5-17"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb5-18"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="maf-配合使用-orleans-的範例-2" class="slide level2 scrollable">
 <h2>MAF 配合使用 Orleans 的範例 #2</h2>
