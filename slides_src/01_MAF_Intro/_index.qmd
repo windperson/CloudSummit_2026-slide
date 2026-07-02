@@ -57,7 +57,7 @@ _(以上都GitHub Copilot掰的🤖)_
 
 在 MAF (以及其他MS相關技術)中 ，AI Agent 架構概念包括以下組件：
 
-![圖片來源：[Get started with Microsoft Copilot Studio - part 3](https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/)]({{< meta part1_img_prefix >}}pics/agent_Arch.png){fig-align="center" width="100%"}
+![圖片來源：[Get started with Microsoft Copilot Studio - part 3](https://learn.microsoft.com/en-us/training/modules/power-virtual-agents-bots/)]({{< meta part1_img_prefix >}}pics/agent_arch.png){fig-align="center" width="100%"}
 
 ## MAF 控制 LLM 架構{.scrollable}
 
